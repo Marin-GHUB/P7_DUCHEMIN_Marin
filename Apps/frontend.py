@@ -1,5 +1,6 @@
 import re
 from re import search
+from types import SimpleNamespace
 
 import dash
 import dash_bootstrap_components as dbc
@@ -8,7 +9,7 @@ import dash_html_components as html
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 from dash.development.base_component import Component
 from numpy.core.fromnumeric import searchsorted
 
@@ -83,16 +84,77 @@ accueil = [
 ]
 
 # Describing the infos page
-infos = [
-    dbc.Row(dbc.Col(html.H1('Test Info Page'))),
+infos = html.Div(
+    [
+    dbc.Row(dbc.Col(html.H1('Informations Client'))),
+    dbc.Row(html.Hr()),
+    dbc.Row(html.Hr()),
     dbc.Row([
-        dbc.Col(dbc.Label(client_id, id='shown_client_id')),
-    ])
+        dbc.Col(dbc.Label(client_id, id='shown_client_id')),]),
+    dbc.Row(html.Hr()),
+    dbc.Row([
+        dbc.Col([
+            dbc.Button("EXT_SOURCES_MIN", id='button_source_ext', n_clicks=0),
+            dbc.Collapse(
+                dbc.Card(dbc.CardBody("This is where the graph will be.")),
+                id='collapse_source_ext',
+                is_open=False,
+            ),
+        ]),
+        dbc.Col([
+            dbc.Button("AMT_ANNUITY", id='button_annuity', n_clicks=0),
+            dbc.Collapse(
+                dbc.Card(dbc.CardBody("This is where the graph will be.")),
+                id='collapse_annuity',
+                is_open=False,
+            ),
+        ]),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Button("CREDIT_TO_ANNUITY_RATIO", id='button_annuity_ratio', n_clicks=0),
+            dbc.Collapse(
+                dbc.Card(dbc.CardBody("This is where the graph will be.")),
+                id='collapse_annuity_ratio',
+                is_open=False,
+            ),
+        ]),
+        dbc.Col([
+            dbc.Button("DAYS_BIRTH", id='button_birth', n_clicks=0),
+            dbc.Collapse(
+                dbc.Card(dbc.CardBody("This is where the graph will be.")),
+                id='collapse_birth',
+                is_open=False,
+            ),
+        ]),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Button("CODE_GENDER", id='button_gender', n_clicks=0),
+            dbc.Collapse(
+                dbc.Card(dbc.CardBody("This is where the graph will be.")),
+                id='collapse_gender',
+                is_open=False,
+            ),
+        ]),
+        dbc.Col([
+            dbc.Button("CREDITS_TO_GOODS_RATIO", id='button_goods_ratio', n_clicks=0),
+            dbc.Collapse(
+                dbc.Card(dbc.CardBody("This is where the graph will be.")),
+                id='collapse_goods_ratio',
+                is_open=False,
+            ),
+        ]),
+    ]),
 ]
+)
 
 #################################################################
 ### Calling the app in Flask
 def create_dash_application(flask_app):
+
+
+
     # Creating the app
     dash_app = dash.Dash(
         server=flask_app,
@@ -135,7 +197,75 @@ def create_dash_application(flask_app):
             ID_temp = None
         return ID_temp
         
-    return dash_app
+    ### Managing collapses
+    # Collapse source_ext
+    @dash_app.callback(
+        Output("collapse_source_ext", "is_open"),
+        [Input("button_source_ext", "n_clicks")],
+        [State("collapse_source_ext", "is_open")],
+    )
+    def toggle_collapse_source_ext(n, is_open):
+        if n:
+            return not is_open
+        return is_open
     
+    # Collapse annuity
+    @dash_app.callback(
+        Output("collapse_annuity", "is_open"),
+        [Input("button_annuity", "n_clicks")],
+        [State("collapse_annuity", "is_open")],
+    )
+    def toggle_collapse_annuity(n, is_open):
+        if n:
+            return not is_open
+        return is_open
+
+    # Collapse annuity_ratio
+    @dash_app.callback(
+        Output("collapse_annuity_ratio", "is_open"),
+        [Input("button_annuity_ratio", "n_clicks")],
+        [State("collapse_annuity_ratio", "is_open")],
+    )
+    def toggle_collapse_annuity_ratio(n, is_open):
+        if n:
+            return not is_open
+        return is_open
+
+    # Collapse birth
+    @dash_app.callback(
+        Output("collapse_birth", "is_open"),
+        [Input("button_birth", "n_clicks")],
+        [State("collapse_birth", "is_open")],
+    )
+    def toggle_collapse_birth(n, is_open):
+        if n:
+            return not is_open
+        return is_open
+
+    # Collapse gender
+    @dash_app.callback(
+        Output("collapse_gender", "is_open"),
+        [Input("button_gender", "n_clicks")],
+        [State("collapse_gender", "is_open")],
+    )
+    def toggle_collapse_gender(n, is_open):
+        if n:
+            return not is_open
+        return is_open
+
+    # Collapse goods_ratio
+    @dash_app.callback(
+        Output("collapse_goods_ratio", "is_open"),
+        [Input("button_goods_ratio", "n_clicks")],
+        [State("collapse_goods_ratio", "is_open")],
+    )
+    def toggle_collapse_goods_ratio(n, is_open):
+        if n:
+            return not is_open
+        return is_open
+
+
+
+    return dash_app
 #################################################################
 #################################################################

@@ -81,7 +81,7 @@ def retrieve_client_id(input_data):
     else :
         text_shown = f'The ID of the client you entered was : {input_data}.'
 
-    return text_shown#, input_data
+    return text_shown
 
 # Keeping the ID when returning to the home page
 @frontend_app.callback(

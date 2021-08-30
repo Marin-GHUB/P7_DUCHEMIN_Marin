@@ -1,23 +1,29 @@
 # Import des librairies
 
-import os
 import gc
-import numpy as np
-import pandas as pd
-from scipy.stats import kurtosis
-from sklearn.metrics import roc_auc_score
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.impute import SimpleImputer
-from sklearn.linear_model import LogisticRegression
+import os
+import warnings
+
 import joblib
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import seaborn as sns
-import warnings
-from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
 import xgboost as xgb
+from scipy.stats import kurtosis
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import (StratifiedKFold, cross_val_score,
+                                     train_test_split)
+from sklearn.preprocessing import MinMaxScaler
 from xgboost import XGBClassifier
+
 warnings.simplefilter(action='ignore', category=FutureWarning)
+import matplotlib.pyplot as plt
 from lightgbm import LGBMClassifier
+from sklearn.inspection import permutation_importance
+
 from Ressources.p7_functions import *
 
 ######################################################
@@ -386,6 +392,7 @@ test = df[df['TARGET'].isnull()]
 del df
 gc.collect()
 
+
 labels = train['TARGET']
 test_lebels=test['TARGET']
 train = train.drop(columns=['TARGET'])
@@ -398,7 +405,6 @@ test.replace([np.inf, -np.inf], np.nan, inplace=True)
 test_df = test.copy()
 train_df = train.copy()
 train_df['TARGET'] = labels
-#test_df['TARGET'] = test_lebels
 
 imputer = SimpleImputer(strategy = 'median')
 imputer.fit(train)
@@ -416,14 +422,29 @@ lgbmc = LGBMClassifier()
 lgbmc.fit(train, labels)
 
 lgbm_pred = lgbmc.predict_proba(test)[:, 1]
+lbgm_results = lgbmc.predict(test)
 
 submit = test_df[['SK_ID_CURR']]
 submit['TARGET'] = lgbm_pred
 ######################################################
-# Saving results as csv and exporting the model
+# Saving results as csv
 test_df.to_csv('Apps/Ressources/test_set.csv', index=False)
-submit.to_csv('Apps/Ressources/Local/lgbm.csv', index = False)
+submit.to_csv('Apps/Ressources/lgbm_results.csv', index = False)
 
+# Getting the most important variables to determine the likeliness of the loan
+result = permutation_importance(lgbmc, test, lbgm_results, n_repeats=10,
+                                random_state=0, n_jobs=2)
+sorted_idx = result.importances_mean.argsort()
+
+fig, ax = plt.subplots(figsize = (12,4))
+ax.boxplot(result.importances[sorted_idx].T[:,-18:-1],
+           vert=False, labels=test_df.columns[sorted_idx][-18:-1])
+ax.set_title("Importance des Variables Regression Ridge (test set)", fontsize = 24)
+fig.tight_layout()
+plt.savefig('Media/Important Variables.png',bbox_inches='tight',pad_inches = 1, dpi= 120)
+plt.show()
+
+#  Exporting the model
 joblib.dump(lgbmc, 'Apps/Ressources/p7_model')
 ######################################################
 ######################################################
