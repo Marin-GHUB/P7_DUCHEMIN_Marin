@@ -2,6 +2,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from flask import Flask, jsonify, request
+import os
 
 #################################################################
 # Initialisation of the flask API
@@ -22,6 +23,11 @@ client = {
 
 #################################################################
 ### Functions
+
+# Welcome page
+@backend.route('/')
+def welcome_view():
+    return "<h1>Welcome to the backend restAPI. It is running right now."
 
 # Getting and sending the ID of a client
 @backend.route('/id', methods=['GET', 'POST'])
@@ -56,35 +62,45 @@ def send_proba():
 def send_score():
     return jsonify(client['loan_score'])
 
-# Preprocessing the application test for the graphics
-client_df['RESULT'] = np.nan
-client_df['PROBA'] = np.nan
-client_df['LOAN'] = np.nan
-client_df['CREDIT_TO_ANNUITY_RATIO'] = np.nan
-client_df['EXT_SOURCE_MIN'] = np.nan
 
-for i, v in client_df.iterrows():
-    # Creating the credit to annuity ratio variable
-    client_credit = client_df.loc[i, 'AMT_CREDIT']
-    client_annuity = client_df.loc[i, 'AMT_ANNUITY']
-    client_df.loc[i, 'CREDIT_TO_ANNUITY_RATIO'] = client_credit / client_annuity
+### Due to limitation in memory on heroku, this step has been done localy instead of remotely ###
+#
+## Preprocessing the application test for the graphics
+#client_df['RESULT'] = np.nan
+#client_df['PROBA'] = np.nan
+#client_df['LOAN'] = np.nan
+#client_df['CREDIT_TO_ANNUITY_RATIO'] = np.nan
+#client_df['EXT_SOURCE_MIN'] = np.nan
+#
+#for i, v in client_df.iterrows():
+#    # Creating the credit to annuity ratio variable
+#    client_credit = v['AMT_CREDIT']
+#    client_annuity = v['AMT_ANNUITY']
+#    v['CREDIT_TO_ANNUITY_RATIO'] = client_credit / client_annuity
+#
+#    # Creating the minimum source external score variable
+#    client_source = []
+#    client_source.append(v['EXT_SOURCE_1'])
+#    client_source.append(v['EXT_SOURCE_2'])
+#    client_source.append(v['EXT_SOURCE_3'])
+#    v['EXT_SOURCE_MIN'] = min(client_source)
+#
+#    # Creating the result variables
+#    temp_ID = v['SK_ID_CURR']
+#    client_masque = predict_df[predict_df['SK_ID_CURR']==temp_ID]
+#    v['PROBA'] = int(max(model.predict_proba(client_masque)[0])*10000)/100
+#    v['RESULT'] = int(model.predict(client_masque))
+#    if v['RESULT'] == 0:
+#        v['LOAN'] = 'Refusé'
+#    else :
+#        v['LOAN'] = 'Accepté'
+#
+#
+### Then the dataset has been saved and it is the one used in place of 'application_test.csv' on the github repository ###
+#
+#client_df.to_csv('Apps/Ressources/preprocessed_application_test.csv', index=False)
 
-    # Creating the minimum source external score variable
-    client_source = []
-    client_source.append(client_df.loc[i, 'EXT_SOURCE_1'])
-    client_source.append(client_df.loc[i, 'EXT_SOURCE_2'])
-    client_source.append(client_df.loc[i, 'EXT_SOURCE_3'])
-    client_df.loc[i, 'EXT_SOURCE_MIN'] = min(client_source)
 
-    # Creating the result variables
-    temp_ID = v['SK_ID_CURR']
-    client_masque = predict_df[predict_df['SK_ID_CURR']==temp_ID]
-    client_df.loc[i, 'PROBA'] = int(max(model.predict_proba(client_masque)[0])*10000)/100
-    client_df.loc[i, 'RESULT'] = int(model.predict(client_masque))
-    if client_df.loc[i, 'RESULT'] == 0:
-        client_df.loc[i,'LOAN'] = 'Refusé'
-    else :
-        client_df.loc[i,'LOAN'] = 'Accepté'
 
 # Sending the dataframe
 @backend.route('/dataframe', methods=['GET'])
@@ -94,7 +110,7 @@ def send_dataframe():
 #################################################################
 # Running the app
 if __name__ == '__main__':
-    backend.run(debug=True)
+    backend.run(host='0.0.0.0', port=os.environ.get('PORT', '5000'), debug=True)
 
 #################################################################
 #################################################################
