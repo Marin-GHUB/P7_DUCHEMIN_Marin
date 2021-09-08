@@ -2,7 +2,7 @@
 
 Dans ce répertoire, nous trouverons les fichiers nécessaires à la réalisation du Projet 7 du parcours Data Scientist d'OpenClassRoom.
 
-![](Media/Diagram_project.png)
+![](Media/Project Diagram.png)
 
 Le dossier est séparé en trois branches pour faciliter l'hébergement sur HEROKU. La branche principales contient les trois scripts python ainsi que quelques images et autres médias pour présenter le projet. 
 
