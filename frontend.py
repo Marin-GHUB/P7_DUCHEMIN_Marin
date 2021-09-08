@@ -168,14 +168,19 @@ def toggle_fade_collapse(n, is_in):
 backend_address = 'https://p7-backend.herokuapp.com'
 
 # Function
-def getting_df():
-    question = requests.get(f'{backend_address}/dataframe')
-    result = question.json()
-    return result
+
+## Due to memory limitation on Heroku, we will not look for the dataframe on the backend server ##
+#def getting_df():
+#    question = requests.get(f'{backend_address}/dataframe')
+#    result = question.json()
+#    return result
+#
+# Creating Variables
+#json_df = getting_df()
+#client_df = pd.read_json(json_df, orient='records')
 
 # Creating Variables
-json_df = getting_df()
-client_df = pd.read_json(json_df, orient='records')
+client_df = pd.read_csv('Ressources/application_test.csv')
 del json_df
 accepted_clients_df = client_df[client_df['RESULT'] == 1]
 refused_clients_df = client_df[client_df['RESULT'] == 0]
