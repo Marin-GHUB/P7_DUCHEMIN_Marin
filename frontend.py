@@ -181,7 +181,6 @@ backend_address = 'https://p7-backend.herokuapp.com'
 
 # Creating Variables
 client_df = pd.read_csv('Ressources/application_test.csv')
-del json_df
 accepted_clients_df = client_df[client_df['RESULT'] == 1]
 refused_clients_df = client_df[client_df['RESULT'] == 0]
 col_list = ['EXT_SOURCE_MIN', 'AMT_ANNUITY', 'CREDIT_TO_ANNUITY_RATIO','DAYS_BIRTH']
