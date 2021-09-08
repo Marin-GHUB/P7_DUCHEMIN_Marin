@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request
 # Initialisation of the flask API
 
 backend = Flask(__name__)
-server = backend.server
+#server = backend.server
 
 #################################################################
 # Initialisation of usefull variables
@@ -23,6 +23,11 @@ client = {
 
 #################################################################
 ### Functions
+
+# Welcome page
+@backend.route('/')
+def welcome_view():
+    return "<h1>Welcome to the backend restAPI. It is running right now."
 
 # Getting and sending the ID of a client
 @backend.route('/id', methods=['GET', 'POST'])
