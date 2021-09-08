@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request
 # Initialisation of the flask API
 
 backend = Flask(__name__)
-#server = backend.server
+server = backend.server
 
 #################################################################
 # Initialisation of usefull variables
