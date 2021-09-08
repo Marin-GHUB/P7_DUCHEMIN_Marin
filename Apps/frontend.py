@@ -166,7 +166,7 @@ def toggle_fade_collapse(n, is_in):
 
 # Function
 def getting_df():
-    question = requests.get('http://127.0.0.1:5000/dataframe')
+    question = requests.get('https://p7-backend.herokuapp.com/dataframe')
     result = question.json()
     return result
 
