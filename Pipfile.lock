@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1132f43fd500b2b131b345a06b14c6b7cd85cac3e4cab7576b71d1189f9a085a"
+            "sha256": "59993a82de8af4a6423cbc6bd5f96e0a7bffa67ccb5ee4a7f61b72dba86d78e8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -146,14 +146,6 @@
             "index": "pypi",
             "version": "==1.10.1"
         },
-        "idna": {
-            "hashes": [
-                "sha256:14475042e284991034cb48e06f6851428fb14c4dc953acd9be9a5e95c7b6dd7a",
-                "sha256:467fbad99067910785144ce333826c71fb0e63a425657295239737f7ecd125f3"
-            ],
-            "index": "pypi",
-            "version": "==3.2"
-        },
         "gunicorn": {
             "hashes": [
                 "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e",
@@ -161,6 +153,14 @@
             ],
             "index": "pypi",
             "version": "==20.1.0"
+        },
+        "idna": {
+            "hashes": [
+                "sha256:14475042e284991034cb48e06f6851428fb14c4dc953acd9be9a5e95c7b6dd7a",
+                "sha256:467fbad99067910785144ce333826c71fb0e63a425657295239737f7ecd125f3"
+            ],
+            "index": "pypi",
+            "version": "==3.2"
         },
         "itsdangerous": {
             "hashes": [
