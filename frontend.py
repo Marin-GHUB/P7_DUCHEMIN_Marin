@@ -66,7 +66,7 @@ content = html.Div([
             dbc.Fade([
                 dbc.Row([
                     dbc.Col(dbc.Card([
-                        dbc.CardHeader("Graphique des Attributs Essentiels pour l'Obtient d'un Prêt"),
+                        dbc.CardHeader("Graphique des Attributs Essentiels pour l'Obtention d'un Prêt"),
                         dbc.CardBody([
                             html.Div([
                                 dbc.Row([
