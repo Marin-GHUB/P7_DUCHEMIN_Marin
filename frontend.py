@@ -176,6 +176,7 @@ def getting_df():
 # Creating Variables
 json_df = getting_df()
 client_df = pd.read_json(json_df, orient='records')
+del json_df
 accepted_clients_df = client_df[client_df['RESULT'] == 1]
 refused_clients_df = client_df[client_df['RESULT'] == 0]
 col_list = ['EXT_SOURCE_MIN', 'AMT_ANNUITY', 'CREDIT_TO_ANNUITY_RATIO','DAYS_BIRTH']
