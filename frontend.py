@@ -165,9 +165,11 @@ def toggle_fade_collapse(n, is_in):
 #################################################################
 ### Getting the dataframe from the backend ###
 
+backend_address = 'https://p7-backend.herokuapp.com'
+
 # Function
 def getting_df():
-    question = requests.get('https://p7-backend.herokuapp.com/dataframe')
+    question = requests.get(f'{backend_address}/dataframe')
     result = question.json()
     return result
 
@@ -184,30 +186,30 @@ graph_dict = dict(zip(graph_col, col_list))
 
 # Storing the ID in the data storage
 def storing_id(ID):
-    question = requests.post('http://127.0.0.1:5000/id', json={'id' : ID})
+    question = requests.post(f'{backend_address}/id', json={'id' : ID})
     question.json()
 
 # Prediction
 def predict_score():
-    question = requests.get('http://127.0.0.1:5000/predict')
+    question = requests.get(f'{backend_address}/predict')
     result = question.json()
     return result
 
 # Getting the ID
 def getting_id():
-    question = requests.get('http://127.0.0.1:5000/id')
+    question = requests.get(f'{backend_address}/id')
     result = question.json()
     return result
 
 # Getting the proba
 def getting_proba():
-    question = requests.get('http://127.0.0.1:5000/proba')
+    question = requests.get(f'{backend_address}/proba')
     result = question.json()
     return result
 
 # Getting the score
 def getting_score():
-    question = requests.get('http://127.0.0.1:5000/score')
+    question = requests.get(f'{backend_address}/score')
     result = question.json()
     return result
 
