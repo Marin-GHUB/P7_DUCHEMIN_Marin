@@ -2,7 +2,6 @@ import joblib
 import numpy as np
 import pandas as pd
 from flask import Flask, jsonify, request
-import os
 
 #################################################################
 # Initialisation of the flask API
@@ -110,7 +109,7 @@ def send_dataframe():
 #################################################################
 # Running the app
 if __name__ == '__main__':
-    backend.run(host='0.0.0.0', port=os.environ.get('PORT', '5000'), debug=True)
+    backend.run(debug=True)
 
 #################################################################
 #################################################################
