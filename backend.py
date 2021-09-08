@@ -70,26 +70,26 @@ client_df['EXT_SOURCE_MIN'] = np.nan
 
 for i, v in client_df.iterrows():
     # Creating the credit to annuity ratio variable
-    client_credit = client_df.loc[i, 'AMT_CREDIT']
-    client_annuity = client_df.loc[i, 'AMT_ANNUITY']
-    client_df.loc[i, 'CREDIT_TO_ANNUITY_RATIO'] = client_credit / client_annuity
+    client_credit = v['AMT_CREDIT']
+    client_annuity = v['AMT_ANNUITY']
+    v['CREDIT_TO_ANNUITY_RATIO'] = client_credit / client_annuity
 
     # Creating the minimum source external score variable
     client_source = []
-    client_source.append(client_df.loc[i, 'EXT_SOURCE_1'])
-    client_source.append(client_df.loc[i, 'EXT_SOURCE_2'])
-    client_source.append(client_df.loc[i, 'EXT_SOURCE_3'])
-    client_df.loc[i, 'EXT_SOURCE_MIN'] = min(client_source)
+    client_source.append(v['EXT_SOURCE_1'])
+    client_source.append(v['EXT_SOURCE_2'])
+    client_source.append(v['EXT_SOURCE_3'])
+    v['EXT_SOURCE_MIN'] = min(client_source)
 
     # Creating the result variables
     temp_ID = v['SK_ID_CURR']
     client_masque = predict_df[predict_df['SK_ID_CURR']==temp_ID]
-    client_df.loc[i, 'PROBA'] = int(max(model.predict_proba(client_masque)[0])*10000)/100
-    client_df.loc[i, 'RESULT'] = int(model.predict(client_masque))
-    if client_df.loc[i, 'RESULT'] == 0:
-        client_df.loc[i,'LOAN'] = 'Refusé'
+    v['PROBA'] = int(max(model.predict_proba(client_masque)[0])*10000)/100
+    v['RESULT'] = int(model.predict(client_masque))
+    if v['RESULT'] == 0:
+        v['LOAN'] = 'Refusé'
     else :
-        client_df.loc[i,'LOAN'] = 'Accepté'
+        v['LOAN'] = 'Accepté'
 
 # Sending the dataframe
 @backend.route('/dataframe', methods=['GET'])
