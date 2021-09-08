@@ -16,6 +16,7 @@ from dash.dependencies import Input, Output, State
 # App
 frontend = dash.Dash(__name__, external_stylesheets=[dbc.themes.SLATE],
                     suppress_callback_exceptions=True)
+server = frontend.server
 
 #################################################################
 ### Designing the layout ###
