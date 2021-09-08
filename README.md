@@ -2,6 +2,8 @@
 
 Dans ce répertoire, nous trouverons les fichiers nécessaires à la réalisation du Projet 7 du parcours Data Scientist d'OpenClassRoom.
 
+![](Media/Diagram_project.png)
+
 Le dossier est séparé en trois branches pour faciliter l'hébergement sur HEROKU. La branche principales contient les trois scripts python ainsi que quelques images et autres médias pour présenter le projet. 
 
 La branche "API-Back-end" contient uniquement l'application backend (une restAPI basée sur Flask) en elle-même et les fichiers nécessaires à son bon fonctionnement. (jeux de données, fichiers requirements.txt, etc)
