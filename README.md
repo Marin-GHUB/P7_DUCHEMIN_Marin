@@ -2,7 +2,7 @@
 
 Dans ce répertoire, nous trouverons les fichiers nécessaires à la réalisation du Projet 7 du parcours Data Scientist d'OpenClassRoom.
 
-![](https://raw.githubusercontent.com/Marin-GHUB/P7_DUCHEMIN_Marin/main/Media/Project%20Diagram.png?token=ARZTETXQCJ5WWDGUBK3HGVDBHDTSS)
+![](https://github.com/Marin-GHUB/P7_DUCHEMIN_Marin/blob/main/Media/Project%20Diagram.png?raw=true)
 
 Le dossier est séparé en trois branches pour faciliter l'hébergement sur HEROKU. La branche principales contient les trois scripts python ainsi que quelques images et autres médias pour présenter le projet. 
 
