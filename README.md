@@ -1,4 +1,5 @@
 # Implémentez un Modèle de Scoring #
+English afterward
 
 Dans ce répertoire, nous trouverons les fichiers nécessaires à la réalisation du Projet 7 du parcours Data Scientist d'OpenClassRoom.
 
@@ -13,3 +14,20 @@ La branche "API-Front-end" quand à elle contient uniquement l'application front
 Les fichiers requirements.txt, environment.yml et pipfile permettent de reproduire l'environnement virtuel utilisé.
 
 Le fichier Procfile permet l'hébergement des applications sur Heroku afin de pouvoir y accéder depuis n'importe quelle machine.
+
+
+## English Translation ##
+
+In this project, we will help a fictive bank enterprise to take decision on loan lending with an interactive dashboard.
+
+![](https://github.com/Marin-GHUB/P7_DUCHEMIN_Marin/blob/main/Media/Project%20Diagram.png?raw=true)
+
+The file is separated in three branches to ease the hosting on HEROKU. The main branch contains the 3 python scripts (preprocessing, rest API and dashboard) as well as a few images and other medias to present the project. 
+
+The branch "API-Back-end" contains only the backend app in itself (restAPI based on Flask) and the files needed for it to function (dataset, requirements.txt. etc
+
+The branch "API-Front-end" contains only the frontend app (an interactive dashboard based on Dash) and also the required files. 
+
+The requirements.txt, environment.yml and pipfile files allow the reproduction of the virtual environment used.
+
+The Procfile file allow the hosting of the apps on HEROKU to be able to access them from any machine.
